@@ -15,3 +15,4 @@ SO THAT my company can compete with other e-commerce companies
 
 ## Mock-up
 
+https://drive.google.com/file/d/1dHM9LMlGZpHPJvrXTBF1AMU9prOEQcCX/view
