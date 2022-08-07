@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
   // find all products
   // be sure to include its associated Category and Tag data
   Product.findAll({
-    include: [Category, Tag]
+    // include: [Category, Tag]
   })
     .then((products) => res.json(products))
     .catch((err) => {
@@ -25,7 +25,7 @@ router.get('/:id', (req, res) => {
     where: {
       id: req.params.id,
     },
-    include: [Category, Tag],
+    // include: [Category, Tag],
   })
     .then((products) => res.json(products))
     .catch((err) => {
@@ -47,15 +47,15 @@ router.post('/', (req, res) => {
   Product.create(req.body)
     .then((product) => {
       // if there's product tags, we need to create pairings to bulk create in the ProductTag model
-      if (req.body.tagIds.length) {
-        const productTagIdArr = req.body.tagIds.map((tag_id) => {
-          return {
-            product_id: product.id,
-            tag_id,
-          };
-        });
-        return ProductTag.bulkCreate(productTagIdArr);
-      }
+      // if (req.body.tagIds.length) {
+      //   const productTagIdArr = req.body.tagIds.map((tag_id) => {
+      //     return {
+      //       product_id: product.id,
+      //       tag_id,
+      //     };
+      //   });
+      //   return ProductTag.bulkCreate(productTagIdArr);
+      // }
       // if no product tags, just respond
       res.status(200).json(product);
     })
@@ -110,6 +110,13 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   // delete one product by its `id` value
+  Product.destroy({
+    where: {
+      id: req.params.id,
+    },
+  })
+    .then((category) => res.status(200).json(category))
+    .catch((err) => res.status(400).json(err));
 });
 
 module.exports = router;
